@@ -1,14 +1,13 @@
 import React from 'react';
-import DesktopNavbar from '../../components/DesktopNavbar/DesktopNavbar';
+import styled from 'styled-components';
 
 const LayoutDesktop: React.FC = ({ children }) => {
-  return (
-    <div className="min-h-full">
-      <DesktopNavbar />
-
-      {children}
-    </div>
-  );
+  return <Container>{children}</Container>;
 };
 
 export default LayoutDesktop;
+
+const Container = styled.div`
+  min-height: 100vh;
+  font-family: 'Nunito';
+`;

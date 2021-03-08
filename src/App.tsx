@@ -4,6 +4,8 @@ import Home from './pages/Home';
 import ScrollToTopOnMount from './utils/ScrollToTopOnMount';
 import { Suspense } from 'react';
 import Loading from './utils/Loading';
+import GlobalStyle from './globalStyles';
+import ThemeProvider from './contexts/ThemeContext';
 
 const queryClient = new QueryClient();
 
@@ -11,12 +13,15 @@ function App() {
   return (
     <Suspense fallback={<Loading />}>
       <QueryClientProvider client={queryClient}>
-        <Router>
-          <ScrollToTopOnMount />
-          <Switch>
-            <Route path="/" component={Home} />
-          </Switch>
-        </Router>
+        <ThemeProvider>
+          <Router>
+            <GlobalStyle />
+            <ScrollToTopOnMount />
+            <Switch>
+              <Route path="/" component={Home} />
+            </Switch>
+          </Router>
+        </ThemeProvider>
       </QueryClientProvider>
     </Suspense>
   );
