@@ -1,3 +1,4 @@
+import moment from 'moment';
 import { useMemo } from 'react';
 import styled from 'styled-components';
 import { OrderT } from '../../interfaces/DataTypes';
@@ -38,7 +39,7 @@ const Order: React.FC<IProps> = ({ order }) => {
       <Row>{order.restaurant.name}</Row>
       <Row>{order.restaurant.phone_number}</Row>
       <Row>{order.unique_order_id}</Row>
-      <Row>{order.created_at}</Row>
+      <Row>{moment(order.created_at, 'YYYY-MM-DD HH:mm:ss').fromNow()}</Row>
       <Row>{getStatus(order.orderstatus_id)}</Row>
     </TableRow>
   );

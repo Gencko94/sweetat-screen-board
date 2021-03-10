@@ -8,7 +8,7 @@ const Table = () => {
   const { isLoading, data, error } = useQuery('data', () => getData(), {
     refetchInterval: 30000,
   });
-  console.log('refetched');
+
   const tableHeaders = [
     '',
     'Restaurant Name',
