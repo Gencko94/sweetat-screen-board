@@ -1,11 +1,22 @@
 import styled from 'styled-components';
+import { useQueryClient } from 'react-query';
+import Loader from 'react-loader-spinner';
 
 const Info = () => {
+  const queryClient = useQueryClient();
+  const fetchNow = () => {
+    queryClient.invalidateQueries('data');
+  };
   return (
     <Container>
       <TotalOrders>Total Orders (5)</TotalOrders>
+      {queryClient.isFetching() ? (
+        <Loader type="TailSpin" color="#9E46BC" height={30} width={30} />
+      ) : (
+        ''
+      )}
       <LastFetch>Last Fetch 9:53 AM</LastFetch>
-      <FetchButton>Fetch Now</FetchButton>
+      <FetchButton onClick={() => fetchNow()}>Fetch Now</FetchButton>
     </Container>
   );
 };
