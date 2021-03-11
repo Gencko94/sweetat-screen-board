@@ -28,7 +28,7 @@ export const lightTheme = {
   },
   usersBg: '#CF46FF',
   pendingBg: '#FFAF46',
-  acceptedBg: '#46A9FF',
+  acceptedBg: '#1d9e42',
 };
 
 export const darkTheme = {
@@ -61,5 +61,5 @@ export const darkTheme = {
   // Panel Colors
   usersBg: '#9E46BC',
   pendingBg: '#FFAF46',
-  acceptedBg: '#46A9FF',
+  acceptedBg: '#1d9e42',
 };

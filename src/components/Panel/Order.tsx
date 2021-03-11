@@ -14,17 +14,49 @@ const Order: React.FC<IProps> = ({ order }) => {
   const getStatus = (status: number) => {
     switch (status) {
       case 1:
-        return 'Pending';
+        return (
+          <>
+            <Text>Pending</Text>
+            <StatusColor col="#FFAF46" />
+          </>
+        );
       case 2:
-        return 'Accepted';
+        return (
+          <>
+            <Text>Accepted</Text>
+            <StatusColor col="#46A9FF" />
+          </>
+        );
+
       case 3:
-        return 'Delivery Assigned';
+        return (
+          <>
+            <Text>Delivery Assigned</Text>
+            <StatusColor col="#46A9FF" />
+          </>
+        );
       case 4:
-        return 'Picked Up';
+        return (
+          <>
+            <Text>Picked Up</Text>
+            <StatusColor col="#46A9FF" />
+          </>
+        );
+
       case 5:
-        return 'Completed';
+        return (
+          <>
+            <Text>Completed</Text>
+            <StatusColor col="#1d9e42" />
+          </>
+        );
       case 6:
-        return 'Canceled';
+        return (
+          <>
+            <Text>Cancelled</Text>
+            <StatusColor col="#b72b2b" />
+          </>
+        );
 
       default:
         break;
@@ -36,10 +68,18 @@ const Order: React.FC<IProps> = ({ order }) => {
         src={`${url}/${order.restaurant.logo}`}
         alt={order.restaurant.name}
       />
-      <Row>{order.restaurant.name}</Row>
-      <Row>{order.restaurant.phone_number}</Row>
-      <Row>{order.unique_order_id}</Row>
-      <Row>{moment(order.created_at, 'YYYY-MM-DD HH:mm:ss').fromNow()}</Row>
+      <Row>
+        <Text>{order.restaurant.name}</Text>
+      </Row>
+      <Row>
+        <Text>{order.restaurant.phone_number}</Text>
+      </Row>
+      <Row>
+        <Text>{order.unique_order_id}</Text>
+      </Row>
+      <Row>
+        <Text>{moment(order.created_at, 'YYYY-MM-DD HH:mm:ss').fromNow()}</Text>
+      </Row>
       <Row>{getStatus(order.orderstatus_id)}</Row>
     </TableRow>
   );
@@ -48,16 +88,30 @@ const Order: React.FC<IProps> = ({ order }) => {
 export default Order;
 const TableRow = styled.div`
   display: grid;
-  grid-template-columns: 0.3fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 0.4fr 1fr 1fr 1fr 1fr 1fr;
   gap: 0.25rem;
-  margin: 1rem;
+  margin: 1rem 0;
 `;
 const Logo = styled.img`
   width: 50px;
   height: 50px;
   border-radius: 50%;
+  box-shadow: 1px solid rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.1);
 `;
-const Row = styled.h6`
+const Row = styled.div`
   padding: 0.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+const Text = styled.h6`
   text-align: center;
+`;
+const StatusColor = styled.div<{ col: string }>`
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background-color: ${props => props.col};
+  margin-left: 0.5rem;
 `;

@@ -1,34 +1,35 @@
-import { useQuery } from 'react-query';
+import { useContext } from 'react';
 import styled from 'styled-components';
 import { OrderT } from '../../interfaces/DataTypes';
-import { getData } from '../../utils/queries';
+import { DataProvider } from '../../pages/Home';
 import Order from './Order';
 
 const Table = () => {
-  const { isLoading, data, error } = useQuery('data', () => getData(), {
-    refetchInterval: 30000,
-  });
+  const { orders, isLoading } = useContext(DataProvider);
 
   const tableHeaders = [
     '',
-    'Restaurant Name',
+    'Rest Name',
     'Restaurant No',
     'Invoice No',
     'Order Date',
     'Status',
   ];
-
+  if (isLoading) return <>Loading</>;
   return (
     <Container>
       <TableContainer>
-        <TableHeader>
-          {tableHeaders.map(tablehead => (
-            <TableHeadRow>{tablehead}</TableHeadRow>
-          ))}
-        </TableHeader>
+        {orders?.length !== 0 && (
+          <TableHeader>
+            {tableHeaders.map(tablehead => (
+              <TableHeadRow key={tablehead}>{tablehead}</TableHeadRow>
+            ))}
+          </TableHeader>
+        )}
         <TableBody>
-          {data?.data.map((order: OrderT) => (
-            <Order key={order.id} order={order} />
+          {orders?.length === 0 && <NoOrders>No Orders Today :(</NoOrders>}
+          {orders?.map((order: OrderT) => (
+            <Order key={order.unique_order_id} order={order} />
           ))}
         </TableBody>
       </TableContainer>
@@ -48,5 +49,14 @@ const TableHeadRow = styled.h6`
   font-weight: ${props => props.theme.font.xbold};
   padding: 0.5rem;
   text-align: center;
+  font-size: 1.1rem;
 `;
 const TableBody = styled.div``;
+const NoOrders = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: ${props => props.theme.font.xbold};
+  font-size: 1.5rem;
+  padding: 1rem;
+`;

@@ -1,18 +1,21 @@
+import { useContext } from 'react';
 import styled from 'styled-components';
+import { DataProvider } from '../../pages/Home';
 
 const Thumbnails = () => {
+  const { pending, accepted, isLoading } = useContext(DataProvider);
   return (
     <Container>
       <UsersBox>
-        <Number>2,864</Number>
+        <Number>-</Number>
         <Text>Users Online</Text>
       </UsersBox>
       <PendingBox>
-        <Number>2,864</Number>
+        <Number>{isLoading ? '-' : pending}</Number>
         <Text>Pending Orders</Text>
       </PendingBox>
       <AcceptedBox>
-        <Number>2,864</Number>
+        <Number>{isLoading ? '-' : accepted}</Number>
         <Text>Accepted Orders</Text>
       </AcceptedBox>
     </Container>

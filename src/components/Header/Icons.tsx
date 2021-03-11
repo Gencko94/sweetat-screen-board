@@ -11,7 +11,7 @@ const Icons = () => {
   };
   return (
     <Container>
-      <LanguageContainer>
+      {/* <LanguageContainer>
         <>
           {i18n.language === 'ar' && (
             <Icon onClick={() => changeLanguage('en')}>English</Icon>
@@ -20,7 +20,7 @@ const Icons = () => {
             <Icon onClick={() => changeLanguage('ar')}>العربية</Icon>
           )}
         </>
-      </LanguageContainer>
+      </LanguageContainer> */}
 
       <ThemeToggler />
     </Container>
