@@ -87,6 +87,7 @@ const Input = styled.input`
   font-size: 0.8rem;
   font-weight: ${props => props.theme.font.bold};
   text-align: center;
+  color: ${props => props.theme.subHeading};
 `;
 const Text = styled.p`
   font-weight: ${props => props.theme.font.bold};
