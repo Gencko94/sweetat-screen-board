@@ -16,44 +16,44 @@ const Order: React.FC<IProps> = ({ order }) => {
       case 1:
         return (
           <>
-            <Text>Pending</Text>
+            <Text col="#FFAF46">Pending</Text>
             <StatusColor col="#FFAF46" />
           </>
         );
       case 2:
         return (
           <>
-            <Text>Accepted</Text>
-            <StatusColor col="#46A9FF" />
+            <Text col="#1d9e42">Accepted</Text>
+            <StatusColor col="#1d9e42" />
           </>
         );
 
       case 3:
         return (
           <>
-            <Text>Delivery Assigned</Text>
-            <StatusColor col="#46A9FF" />
+            <Text col="#1d9e42">Delivery Assigned</Text>
+            <StatusColor col="#1d9e42" />
           </>
         );
       case 4:
         return (
           <>
-            <Text>Picked Up</Text>
-            <StatusColor col="#46A9FF" />
+            <Text col="#1d9e42">Picked Up</Text>
+            <StatusColor col="#1d9e42" />
           </>
         );
 
       case 5:
         return (
           <>
-            <Text>Completed</Text>
+            <Text col="#1d9e42">Completed</Text>
             <StatusColor col="#1d9e42" />
           </>
         );
       case 6:
         return (
           <>
-            <Text>Cancelled</Text>
+            <Text col="#b72b2b">Cancelled</Text>
             <StatusColor col="#b72b2b" />
           </>
         );
@@ -64,10 +64,12 @@ const Order: React.FC<IProps> = ({ order }) => {
   };
   return (
     <TableRow>
-      <Logo
-        src={`${url}/${order.restaurant.logo}`}
-        alt={order.restaurant.name}
-      />
+      <Row noPadding>
+        <Logo
+          src={`${url}/${order.restaurant.logo}`}
+          alt={order.restaurant.name}
+        />
+      </Row>
       <Row>
         <Text>{order.restaurant.name}</Text>
       </Row>
@@ -88,25 +90,29 @@ const Order: React.FC<IProps> = ({ order }) => {
 export default Order;
 const TableRow = styled.div`
   display: grid;
-  grid-template-columns: 0.4fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 0.2fr 1fr 1fr 1fr 1fr 1fr;
   gap: 0.25rem;
-  margin: 1rem 0;
+  margin: 0.5rem 0;
+  /* background-color: #1d9e42; */
+  border-radius: 8px;
 `;
 const Logo = styled.img`
-  width: 50px;
-  height: 50px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
   box-shadow: 1px solid rgba(0, 0, 0, 0.1);
   border: 1px solid rgba(0, 0, 0, 0.1);
 `;
-const Row = styled.div`
-  padding: 0.5rem;
+const Row = styled.div<{ noPadding?: boolean }>`
+  padding: ${props => (props.noPadding ? '0.1rem' : '0.5rem')};
   display: flex;
   justify-content: center;
   align-items: center;
 `;
-const Text = styled.h6`
+const Text = styled.h5<{ col?: string }>`
   text-align: center;
+  font-weight: ${props => props.theme.font.xbold};
+  color: ${props => props.col && props.col};
 `;
 const StatusColor = styled.div<{ col: string }>`
   width: 25px;

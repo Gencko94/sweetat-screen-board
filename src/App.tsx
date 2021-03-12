@@ -6,7 +6,7 @@ import { Suspense } from 'react';
 import Loading from './utils/Loading';
 import GlobalStyle from './globalStyles';
 import ThemeProvider from './contexts/ThemeContext';
-
+import './styles/transitions.css';
 const queryClient = new QueryClient();
 
 function App() {

@@ -1,0 +1,14 @@
+dd-enter {
+  opacity: 0;
+}
+dd-enter-active {
+  opacity: 1;
+  transition: opacity 150ms;
+}
+dd-exit {
+  opacity: 1;
+}
+dd-exit-active {
+  opacity: 0;
+  transition: opacity 150ms;
+}

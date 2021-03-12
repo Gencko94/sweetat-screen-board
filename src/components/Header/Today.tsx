@@ -24,12 +24,17 @@ export default Today;
 
 const Container = styled.div`
   /* padding: 0.5rem; */
+  flex: 1;
+  display: flex;
+  align-items: center;
+  position: relative;
+  flex-direction: column;
+  justify-content: center;
 `;
 const Time = styled.h6`
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   font-weight: ${props => props.theme.font.xbold};
   color: ${props => props.theme.headingColor};
-  margin-bottom: 0.25rem;
 `;
 const Date = styled.p`
   color: ${props => props.theme.subHeading};

@@ -6,7 +6,9 @@ const Header = () => {
   return (
     <Container>
       <Today />
-      <Logo src="/logo.png" alt="Sweetat-logo" />
+      <LogoContainer>
+        <Logo src="/logo.png" alt="Sweetat-logo" />
+      </LogoContainer>
       <Icons />
     </Container>
   );
@@ -19,6 +21,13 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+`;
+const LogoContainer = styled.div`
+  flex: 1;
+  display: flex;
+  align-items: center;
+  position: relative;
+  justify-content: center;
 `;
 const Logo = styled.img`
   width: 150px;

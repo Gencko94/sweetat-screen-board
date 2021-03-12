@@ -1,4 +1,4 @@
-import { createContext, useState } from 'react';
+import { ChangeEventHandler, createContext, useState } from 'react';
 import { useQuery } from 'react-query';
 import styled from 'styled-components';
 import Header from '../components/Header/Header';
@@ -13,7 +13,8 @@ interface ContextProps {
   isLoading: boolean;
   dataUpdatedAt: number;
   isFetching: boolean;
-
+  changeVolume: ChangeEventHandler<HTMLInputElement>;
+  volume: number;
   fetchInterval: any;
   setFetch: (option: any) => void;
   orders: OrderT[] | undefined;
@@ -27,14 +28,18 @@ export const DataProvider = createContext<ContextProps>({
   pending: undefined,
   isLoading: true,
   dataUpdatedAt: 0,
+  volume: 1,
   isFetching: false,
-
+  changeVolume: () => {},
   fetchInterval: 5,
   setFetch: () => {},
 });
 
 function Home() {
-  const [play] = useSound('/bell.mp3');
+  const [volume, setVolume] = useState(1);
+  const [play] = useSound('/bell.mp3', {
+    volume,
+  });
   const [modalOpen, setModalOpen] = useState(false);
   const [fetchInterval, setFetchInterval] = useState<number>(5);
   const { isLoading, data, dataUpdatedAt, isFetching } = useQuery<ResponseT>(
@@ -65,9 +70,10 @@ function Home() {
     }
   );
   const setFetch = (option: any) => {
-    console.log(option);
-
     setFetchInterval(parseInt(option));
+  };
+  const changeVolume: ChangeEventHandler<HTMLInputElement> = ({ target }) => {
+    setVolume(parseFloat(target.value));
   };
   return (
     <Layout>
@@ -80,9 +86,10 @@ function Home() {
           isLoading,
           isFetching,
           dataUpdatedAt,
-
+          changeVolume,
           fetchInterval,
           setFetch,
+          volume,
         }}
       >
         <Header />
