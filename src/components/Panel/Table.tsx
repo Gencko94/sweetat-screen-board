@@ -10,6 +10,7 @@ const Table = () => {
   const tableHeaders = [
     '',
     'Rest Name',
+    'Mode',
     'Restaurant No',
     'Invoice No',
     'Order Date',
@@ -42,7 +43,7 @@ const Container = styled.div``;
 const TableContainer = styled.div``;
 const TableHeader = styled.div`
   display: grid;
-  grid-template-columns: 0.2fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 0.2fr 1fr 1fr 1fr 1fr 1fr 1fr;
   gap: 0.25rem;
 `;
 const TableHeadRow = styled.h6`

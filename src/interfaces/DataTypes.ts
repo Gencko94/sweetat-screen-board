@@ -12,6 +12,7 @@ export interface OrderT {
   created_at: string;
   restaurant: Restaurant;
   unique_order_id: string;
+  payment_mode: string;
 }
 export interface ResponseT {
   pending: number;

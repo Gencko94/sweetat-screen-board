@@ -74,6 +74,9 @@ const Order: React.FC<IProps> = ({ order }) => {
         <Text>{order.restaurant.name}</Text>
       </Row>
       <Row>
+        <Text>{order.payment_mode}</Text>
+      </Row>
+      <Row>
         <Text>{order.restaurant.phone_number}</Text>
       </Row>
       <Row>
@@ -90,7 +93,7 @@ const Order: React.FC<IProps> = ({ order }) => {
 export default Order;
 const TableRow = styled.div`
   display: grid;
-  grid-template-columns: 0.2fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 0.2fr 1fr 1fr 1fr 1fr 1fr 1fr;
   gap: 0.25rem;
   margin: 0.5rem 0;
   /* background-color: #1d9e42; */
