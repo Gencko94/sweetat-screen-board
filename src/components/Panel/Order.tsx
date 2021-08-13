@@ -55,9 +55,9 @@ const Order: React.FC<IProps> = ({ order }) => {
       case 2:
         return (
           <>
-            <Dot col="#1d9e42" />
+            <Dot col="#2e87fc" />
             <Spacer size={5} />
-            <Paragraph style={{ color: "#1d9e42" }}>Accepted</Paragraph>{" "}
+            <Paragraph style={{ color: "#2e87fc" }}>Accepted</Paragraph>{" "}
           </>
         );
 

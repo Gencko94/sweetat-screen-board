@@ -6,16 +6,16 @@ import Heading from "../Heading/Heading";
 import Paragraph from "../Paragraph.tsx/Paragraph";
 
 const Thumbnails = () => {
-  const { pending, accepted, isLoading } = useContext(DataContext);
+  const { pending, accepted, isLoading, orders } = useContext(DataContext);
   console.log(pending);
   return (
     <Container>
-      <UsersBox className="stat-item">
+      <CompletedBox className="stat-item">
         <Heading tag="h6" type="medium-title">
-          -
+          {orders?.filter((order) => order.orderstatus_id === 5).length}
         </Heading>
-        <Paragraph weight="semibold">Users Online</Paragraph>
-      </UsersBox>
+        <Paragraph weight="semibold">Completed Orders</Paragraph>
+      </CompletedBox>
       <PendingBox className="stat-item">
         <Heading tag="h6" type="medium-title">
           {isLoading ? "-" : pending}
@@ -54,14 +54,15 @@ const StatBox = styled.div`
   border-radius: 12px;
   /* color: #fff !important; */
 `;
-const UsersBox = styled(StatBox)`
+const CompletedBox = styled(StatBox)`
   background-color: ${(props) => props.theme.subtleFloating};
+  color: ${(props) => props.theme.green};
 `;
 const PendingBox = styled(StatBox)`
   background-color: ${(props) => props.theme.subtleFloating};
   color: ${(props) => props.theme.yellow};
 `;
 const AcceptedBox = styled(StatBox)`
-  color: ${(props) => props.theme.green};
+  color: ${(props) => props.theme.blue};
   background-color: ${(props) => props.theme.subtleFloating};
 `;
