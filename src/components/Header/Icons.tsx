@@ -1,18 +1,24 @@
-import { useTranslation } from 'react-i18next';
-import styled, { css } from 'styled-components';
-import ThemeToggler from './ThemeToggler';
-import { BsFillGearFill } from 'react-icons/bs';
-import { useContext, useState } from 'react';
-import { ThemeContext } from '../../contexts/ThemeContext';
-import { DataProvider } from '../../pages/Home';
-import { CSSTransition } from 'react-transition-group';
+import { useTranslation } from "react-i18next";
+import styled, { css } from "styled-components";
+import ThemeToggler from "./ThemeToggler";
+import { BsFillGearFill } from "react-icons/bs";
+import { useContext, useState } from "react";
+import { ThemeContext } from "../../contexts/ThemeContext";
+
+import { CSSTransition } from "react-transition-group";
+
+import { ConfigContext } from "../../contexts/ConfigContext";
+import Flex from "../Flex/Flex";
+import DarkModeToggleContainer from "../DarkModeToggle/DarkModeToggle";
+import IconButton from "../Button/IconButton";
+import { up } from "../../constants";
 const Icons = () => {
   const { ready, i18n } = useTranslation();
-  const { mode } = useContext(ThemeContext);
+  const { colorMode } = useContext(ThemeContext);
+  const { handleToggleDrawer } = useContext(ConfigContext);
   const [open, setOpen] = useState(false);
-  const { changeVolume, volume, fetchInterval, setFetch } = useContext(
-    DataProvider
-  );
+  const { changeVolume, volume, fetchInterval, setFetch } =
+    useContext(ConfigContext);
   const changeLanguage = (lng: string) => {
     if (ready) {
       i18n.changeLanguage(lng);
@@ -22,24 +28,20 @@ const Icons = () => {
     <Container>
       {/* <LanguageContainer>
         <>
-          {i18n.language === 'ar' && (
-            <Icon onClick={() => changeLanguage('en')}>English</Icon>
+          {i18n.language === "ar" && (
+            <Icon onClick={() => changeLanguage("en")}>English</Icon>
           )}
-          {i18n.language === 'en' && (
-            <Icon onClick={() => changeLanguage('ar')}>العربية</Icon>
+          {i18n.language === "en" && (
+            <Icon onClick={() => changeLanguage("ar")}>العربية</Icon>
           )}
         </>
       </LanguageContainer> */}
-
-      <Icon onClick={() => setOpen(!open)}>
-        <BsFillGearFill size={25} />
-      </Icon>
+      <DarkModeToggleContainer />
+      <IconButton onClick={() => handleToggleDrawer?.()}>
+        <BsFillGearFill />
+      </IconButton>
       <CSSTransition in={open} timeout={150} classNames="dd" unmountOnExit>
-        <DropDownContainer mode={mode}>
-          <Block>
-            <Text>Toggle Theme</Text>
-            <ThemeToggler />
-          </Block>
+        <DropDownContainer mode={colorMode}>
           <Block>
             <Text>Volume</Text>
             <RangeInput
@@ -54,10 +56,10 @@ const Icons = () => {
           <Block>
             <Text>Fetch/(s)</Text>
             <Input
-              mode={mode}
+              mode={colorMode}
               type="number"
               value={fetchInterval}
-              onChange={e => setFetch(e.target.value)}
+              onChange={(e) => setFetch?.(e.target.value)}
             />
           </Block>
         </DropDownContainer>
@@ -67,31 +69,18 @@ const Icons = () => {
 };
 
 export default Icons;
-const Container = styled.div`
-  display: flex;
-  align-items: center;
-  position: relative;
-  justify-content: center;
-  flex: 1;
-`;
-const LanguageContainer = styled.div`
-  margin: 0 1rem;
-  font-weight: ${props => props.theme.font.bold};
-`;
-const Icon = styled.button`
-  color: ${props => props.theme.subHeading};
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 0.5rem;
-`;
-const IconContainer = styled.div`
-  position: relative;
+const Container = styled.div(
+  ({ theme: { breakpoints } }) => `
+  display:flex;
+  align-items:center;
+  justify-content:flex-end;
+  ${up(breakpoints.md)}{
+    flex-basis:25%;
+    justify-content:center;
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
+  }
+`
+);
 const Block = styled.div`
   display: flex;
   align-items: center;
@@ -99,7 +88,7 @@ const Block = styled.div`
   padding: 0.25rem 0;
 `;
 const Text = styled.p`
-  font-weight: ${props => props.theme.font.semibold};
+  font-weight: ${(props) => props.theme.font.semibold};
   margin: 0 0.5rem;
   font-size: 0.9rem;
 `;
@@ -113,18 +102,18 @@ const DropDownContainer = styled.div<{ mode?: string }>`
   position: absolute;
   left: 50%;
   margin-left: -90px;
-  ${props =>
-    props.mode === 'light' &&
+  ${(props) =>
+    props.mode === "light" &&
     css`
-      box-shadow: ${props => props.theme.shadow};
+      box-shadow: ${(props) => props.theme.shadow};
     `};
-  ${props =>
-    props.mode === 'dark' &&
+  ${(props) =>
+    props.mode === "dark" &&
     css`
-      border: 1px solid ${props => props.theme.btnBorder};
+      border: ${(props) => props.theme.border};
     `}
   border-radius: 6px;
-  background-color: ${props => props.theme.overlayColor};
+  background-color: ${(props) => props.theme.subtleBackground};
   z-index: 2;
 `;
 const RangeInput = styled.input`
@@ -134,16 +123,16 @@ const RangeInput = styled.input`
 const Input = styled.input<{ mode?: string }>`
   padding: 0.25rem;
   border-radius: 6px;
-  background-color: ${props => props.theme.inputColorLight};
+  background-color: ${(props) => props.theme.subtleBackground};
   min-width: 0;
   width: 75px;
   font-size: 0.8rem;
-  font-weight: ${props => props.theme.font.bold};
+  font-weight: ${(props) => props.theme.font.bold};
   text-align: center;
-  color: ${props => props.theme.subHeading};
-  ${props =>
-    props.mode === 'dark' &&
+  color: ${(props) => props.theme.textAlt};
+  ${(props) =>
+    props.mode === "dark" &&
     css`
-      border: 1px solid ${props => props.theme.btnBorder};
+      border: ${(props) => props.theme.border};
     `}
 `;

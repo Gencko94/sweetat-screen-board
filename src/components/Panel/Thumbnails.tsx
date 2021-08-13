@@ -1,65 +1,67 @@
-import { useContext } from 'react';
-import styled from 'styled-components';
-import { DataProvider } from '../../pages/Home';
+import { useContext } from "react";
+import styled from "styled-components";
+import { up } from "../../constants";
+import { DataContext } from "../../contexts/DataContext";
+import Heading from "../Heading/Heading";
+import Paragraph from "../Paragraph.tsx/Paragraph";
 
 const Thumbnails = () => {
-  const { pending, accepted, isLoading } = useContext(DataProvider);
+  const { pending, accepted, isLoading } = useContext(DataContext);
+  console.log(pending);
   return (
     <Container>
-      <UsersBox>
-        <Number>-</Number>
-        <Text>Users Online</Text>
+      <UsersBox className="stat-item">
+        <Heading tag="h6" type="medium-title">
+          -
+        </Heading>
+        <Paragraph weight="semibold">Users Online</Paragraph>
       </UsersBox>
-      <PendingBox>
-        <Number>{isLoading ? '-' : pending}</Number>
-        <Text>Pending Orders</Text>
+      <PendingBox className="stat-item">
+        <Heading tag="h6" type="medium-title">
+          {isLoading ? "-" : pending}
+        </Heading>
+        <Paragraph weight="semibold">Pending Orders</Paragraph>
       </PendingBox>
-      <AcceptedBox>
-        <Number>{isLoading ? '-' : accepted}</Number>
-        <Text>Accepted Orders</Text>
+      <AcceptedBox className="stat-item">
+        <Heading tag="h6" type="medium-title">
+          {isLoading ? "-" : accepted}
+        </Heading>
+        <Paragraph weight="semibold">Accepted Orders</Paragraph>
       </AcceptedBox>
     </Container>
   );
 };
 
 export default Thumbnails;
-const Container = styled.div`
+const Container = styled.div(
+  ({ theme: { breakpoints } }) => `
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 1.2rem;
-  color: #fff;
+  gap: 1.75rem;
+  grid-template-columns: 1fr;
   margin-bottom: 0.5rem;
-`;
-const Number = styled.h3`
-  font-weight: ${props => props.theme.font.xbold};
-`;
-const Text = styled.h4`
-  font-weight: ${props => props.theme.font.bold};
-`;
-const UsersBox = styled.div`
-  background-color: ${props => props.theme.usersBg};
+  ${up(breakpoints.md)}{
+    
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+  `
+);
+const StatBox = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: 1rem 0.5rem;
   border-radius: 12px;
+  /* color: #fff !important; */
 `;
-const PendingBox = styled.div`
-  background-color: ${props => props.theme.pendingBg};
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 1rem 0.5rem;
-  border-radius: 12px;
+const UsersBox = styled(StatBox)`
+  background-color: ${(props) => props.theme.subtleFloating};
 `;
-const AcceptedBox = styled.div`
-  background-color: ${props => props.theme.acceptedBg};
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 1rem 0.5rem;
-  border-radius: 12px;
+const PendingBox = styled(StatBox)`
+  background-color: ${(props) => props.theme.subtleFloating};
+  color: ${(props) => props.theme.yellow};
+`;
+const AcceptedBox = styled(StatBox)`
+  color: ${(props) => props.theme.green};
+  background-color: ${(props) => props.theme.subtleFloating};
 `;

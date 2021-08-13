@@ -1,42 +1,33 @@
-import moment from 'moment';
-import { useEffect, useState } from 'react';
-import styled from 'styled-components';
+import moment from "moment";
+import { useEffect, useState } from "react";
+
+import Flex from "../Flex/Flex";
+import Heading from "../Heading/Heading";
 
 const Today = () => {
   const [date, setDate] = useState(moment());
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setDate(prev => moment());
+      setDate((prev) => moment());
     }, 1000);
     return () => clearInterval(interval);
   }, []);
 
   return (
-    <Container>
-      <Time>{`${date.format('h:mm:ss')}`}</Time>
-      <Date>{`${date.format('dddd, MMMM DD YYYY')}`}</Date>
-    </Container>
+    <Flex items="center" column justify="center" style={{ flexBasis: "25%" }}>
+      <Heading
+        style={{ textAlign: "center" }}
+        tag="h6"
+        type="small-title"
+      >{`${date.format("h:mm:ss")}`}</Heading>
+      <Heading
+        style={{ textAlign: "center" }}
+        tag="h6"
+        type="small-title"
+      >{`${date.format("dddd, MMMM DD YYYY")}`}</Heading>
+    </Flex>
   );
 };
 
 export default Today;
-
-const Container = styled.div`
-  /* padding: 0.5rem; */
-  flex: 1;
-  display: flex;
-  align-items: center;
-  position: relative;
-  flex-direction: column;
-  justify-content: center;
-`;
-const Time = styled.h6`
-  font-size: 1.4rem;
-  font-weight: ${props => props.theme.font.xbold};
-  color: ${props => props.theme.headingColor};
-`;
-const Date = styled.p`
-  color: ${props => props.theme.subHeading};
-  font-weight: ${props => props.theme.font.bold};
-`;

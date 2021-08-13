@@ -1,91 +1,61 @@
-import styled, { css } from 'styled-components';
-import { useQueryClient } from 'react-query';
-import Loader from 'react-loader-spinner';
-import moment from 'moment';
-import { useContext } from 'react';
+import styled from "styled-components";
+import { useQueryClient } from "react-query";
+import Loader from "react-loader-spinner";
+import moment from "moment";
+import { useContext } from "react";
 
-import { DataProvider } from '../../pages/Home';
-import { ThemeContext } from '../../contexts/ThemeContext';
+import Flex from "../Flex/Flex";
+import Heading from "../Heading/Heading";
+import Paragraph from "../Paragraph.tsx/Paragraph";
+
+import { DataContext } from "../../contexts/DataContext";
+import MagicRainbowButton from "../Button/MagicRainbowButton";
+import Seperator from "../Spacer/Spacer";
+import { up } from "../../constants";
 
 const Info = () => {
   const queryClient = useQueryClient();
-  const { orders, isFetching, dataUpdatedAt, isLoading } = useContext(
-    DataProvider
-  );
-  const { mode } = useContext(ThemeContext);
+  const { orders, isFetching, dataUpdatedAt, isLoading } =
+    useContext(DataContext);
 
   const fetchNow = () => {
-    queryClient.invalidateQueries('data');
+    queryClient.invalidateQueries("data");
   };
 
   return (
     <Container>
-      <InfoContainer>
-        <TotalOrders>
-          Total Orders ({isLoading ? '-' : orders?.length})
-        </TotalOrders>
+      <Heading tag="h5" type="normal-heading">
+        Total Orders ({isLoading ? "-" : orders?.length})
+      </Heading>
 
-        {isFetching ? (
-          <Loader type="TailSpin" color="#9E46BC" height={25} width={25} />
-        ) : (
-          ''
-        )}
-        <LastFetch>
+      <Flex items="center" justify="space-between">
+        <Paragraph fontSize="0.9rem">
           Last Fetch {dataUpdatedAt !== 0 && moment(dataUpdatedAt).fromNow()}
-        </LastFetch>
-        <FetchButton mode={mode} onClick={() => fetchNow()}>
+        </Paragraph>
+        <Seperator size={20} />
+        <MagicRainbowButton
+          disabled={isFetching}
+          isLoading={isFetching}
+          onClick={() => fetchNow()}
+        >
           Fetch Now
-        </FetchButton>
-      </InfoContainer>
+        </MagicRainbowButton>
+      </Flex>
     </Container>
   );
 };
 
 export default Info;
-const Container = styled.div``;
-const InfoContainer = styled.div`
-  display: flex;
-  align-items: center;
-  padding: 0.25rem;
-  border-bottom: 1px solid ${props => props.theme.btnBorder};
-`;
-const TotalOrders = styled.h5`
-  font-weight: ${props => props.theme.font.xbold};
-  flex: 1;
-`;
-const FetchingContainer = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  padding: 0.5rem;
-`;
-const LastFetch = styled.p`
-  font-weight: ${props => props.theme.font.semibold};
-  margin: 0 1rem;
-`;
-const FetchButton = styled.button<{ mode?: string }>`
-  background-color: ${props => props.theme.btnPrimaryLight};
-  padding: 0.5rem;
-  color: ${props => props.theme.btnText};
-  border-radius: 8px;
-  font-size: 0.8rem;
-  font-weight: ${props => props.theme.font.bold};
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  ${props =>
-    props.mode === 'dark' &&
-    css`
-      border: 1px solid ${props => props.theme.btnBorder};
-    `}
-  ${props =>
-    props.mode === 'light' &&
-    css`
-      border: 1px solid ${props => props.theme.mainColor};
-    `}
-`;
+const Container = styled.div(
+  ({ theme: { breakpoints } }) => `
+  margin-bottom:2rem;
+  ${up(breakpoints.md)}{
+    margin-bottom:1rem;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
 
-const Text = styled.p`
-  font-weight: ${props => props.theme.font.bold};
-  margin: 0 0.5rem;
-`;
+  }
+
+`
+);

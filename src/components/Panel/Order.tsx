@@ -1,7 +1,12 @@
-import moment from 'moment';
-import { useMemo } from 'react';
-import styled from 'styled-components';
-import { OrderT } from '../../interfaces/DataTypes';
+import moment from "moment";
+
+import { useMemo } from "react";
+import styled from "styled-components";
+import { up } from "../../constants";
+import { OrderT } from "../../interfaces/DataTypes";
+
+import Paragraph from "../Paragraph.tsx/Paragraph";
+import Spacer from "../Spacer/Spacer";
 
 interface IProps {
   order: OrderT;
@@ -9,52 +14,86 @@ interface IProps {
 
 const Order: React.FC<IProps> = ({ order }) => {
   const url = useMemo(() => {
-    return 'https://sweetat.co';
+    return "https://sweetat.co";
   }, []);
+
+  // If Order is ```Pending``` and ```created_at``` is less than 5 Minutes then Color as New
+  const isNew = useMemo(() => {
+    if (
+      order.orderstatus_id === 1 &&
+      moment(Date.now()).diff(moment(order.created_at, "YYYY-MM-DD HH:mm:ss")) <
+        300000
+    ) {
+      return true;
+    } else {
+      return false;
+    }
+  }, [order.created_at, order.orderstatus_id]);
+
+  // If Order is ```Pending``` and ```created_at``` is more than 5 Minutes then Color as Stale
+  const isStale = useMemo(() => {
+    if (
+      order.orderstatus_id === 1 &&
+      moment(Date.now()).diff(moment(order.created_at, "YYYY-MM-DD HH:mm:ss")) >
+        300000
+    ) {
+      return true;
+    } else {
+      return false;
+    }
+  }, [order.created_at, order.orderstatus_id]);
   const getStatus = (status: number) => {
     switch (status) {
       case 1:
         return (
           <>
-            <Text col="#FFAF46">Pending</Text>
-            <StatusColor col="#FFAF46" />
+            <Dot col="#FFAF46" />
+            <Spacer size={5} />
+            <Paragraph style={{ color: "#FFAF46" }}>Pending</Paragraph>{" "}
           </>
         );
       case 2:
         return (
           <>
-            <Text col="#1d9e42">Accepted</Text>
-            <StatusColor col="#1d9e42" />
+            <Dot col="#1d9e42" />
+            <Spacer size={5} />
+            <Paragraph style={{ color: "#1d9e42" }}>Accepted</Paragraph>{" "}
           </>
         );
 
       case 3:
         return (
           <>
-            <Text col="#1d9e42">Delivery Assigned</Text>
-            <StatusColor col="#1d9e42" />
+            <Dot col="#1d9e42" />
+            <Spacer size={5} />
+            <Paragraph align="center" style={{ color: "#1d9e42" }}>
+              Delivery Assigned
+            </Paragraph>
           </>
         );
       case 4:
         return (
           <>
-            <Text col="#1d9e42">Picked Up</Text>
-            <StatusColor col="#1d9e42" />
+            <Dot col="#1d9e42" />
+            <Spacer size={5} />
+            <Paragraph style={{ color: "#1d9e42" }}>Picked Up</Paragraph>{" "}
           </>
         );
 
       case 5:
         return (
           <>
-            <Text col="#1d9e42">Completed</Text>
-            <StatusColor col="#1d9e42" />
+            <Dot col="#1d9e42" />
+            <Spacer size={5} />
+            <Paragraph color="secondary">Completed</Paragraph>{" "}
           </>
         );
       case 6:
         return (
           <>
-            <Text col="#b72b2b">Cancelled</Text>
-            <StatusColor col="#b72b2b" />
+            <Dot col="#b72b2b" />
+            <Spacer size={5} />
+            <Paragraph style={{ color: "#b72b2b" }}>Cancelled</Paragraph>
           </>
         );
 
@@ -63,41 +102,52 @@ const Order: React.FC<IProps> = ({ order }) => {
     }
   };
   return (
-    <TableRow>
-      <Row noPadding>
+    <Container isNew={isNew} isStale={isStale}>
+      <div className="field">
         <Logo
           src={`${url}/${order.restaurant.logo}`}
           alt={order.restaurant.name}
         />
-      </Row>
-      <Row>
-        <Text>{order.restaurant.name}</Text>
-      </Row>
-      <Row>
-        <Text>{order.payment_mode}</Text>
-      </Row>
-      <Row>
-        <Text>{order.restaurant.phone_number}</Text>
-      </Row>
-      <Row>
-        <Text>{order.unique_order_id}</Text>
-      </Row>
-      <Row>
-        <Text>{moment(order.created_at, 'YYYY-MM-DD HH:mm:ss').fromNow()}</Text>
-      </Row>
-      <Row>{getStatus(order.orderstatus_id)}</Row>
-    </TableRow>
+        <Spacer size={10} />
+        <Paragraph>{order.restaurant.name}</Paragraph>
+      </div>
+      <div className="field">
+        <Paragraph>{order.payment_mode}</Paragraph>
+      </div>
+      <div className="field">
+        <Paragraph>{order.restaurant.phone_number}</Paragraph>
+      </div>
+      <div className="field">
+        <Paragraph>{order.unique_order_id}</Paragraph>
+      </div>
+      <div className="field">
+        <Paragraph>
+          {moment(order.created_at, "YYYY-MM-DD HH:mm:ss").fromNow()}
+        </Paragraph>
+      </div>
+      <div className="field">{getStatus(order.orderstatus_id)}</div>
+    </Container>
   );
 };
 
 export default Order;
-const TableRow = styled.div`
+const Container = styled.div<{ isNew: boolean; isStale: boolean }>`
   display: grid;
-  grid-template-columns: 0.2fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  position: relative;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr minmax(150px, 1fr);
   gap: 0.25rem;
   margin: 0.5rem 0;
-  /* background-color: #1d9e42; */
-  border-radius: 8px;
+  transition: background 250ms ease;
+  background-color: ${(props) =>
+    props.isNew ? "#11e0237e" : props.isStale ? "#dbdf147d" : "inherit"};
+  &::before {
+    position: absolute;
+    content: " ";
+    height: 100%;
+    width: 5px;
+    background-color: ${(props) =>
+      props.isNew ? "#11e0237e" : props.isStale ? "#dbdf147d" : "inherit"};
+  }
 `;
 const Logo = styled.img`
   width: 30px;
@@ -106,21 +156,16 @@ const Logo = styled.img`
   box-shadow: 1px solid rgba(0, 0, 0, 0.1);
   border: 1px solid rgba(0, 0, 0, 0.1);
 `;
-const Row = styled.div<{ noPadding?: boolean }>`
-  padding: ${props => (props.noPadding ? '0.1rem' : '0.5rem')};
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-const Text = styled.h5<{ col?: string }>`
-  text-align: center;
-  font-weight: ${props => props.theme.font.xbold};
-  color: ${props => props.col && props.col};
-`;
-const StatusColor = styled.div<{ col: string }>`
-  width: 25px;
-  height: 25px;
+
+const Dot = styled.div<{ col: string }>(
+  ({ theme: { breakpoints }, col }) => `
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
-  background-color: ${props => props.col};
-  margin-left: 0.5rem;
-`;
+  background-color: ${col};
+  ${up(breakpoints.md)}{
+    width: 12px;
+    height: 12px;
+  }
+  `
+);

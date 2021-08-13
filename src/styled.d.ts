@@ -1,41 +1,46 @@
 // import original module declarations
-import 'styled-components';
-import { Devices } from './breakpoints';
+import "styled-components";
+import { Devices } from "./breakpoints";
 
 // and extend them!
 type FontWeights = {
+  light: string;
   regular: string;
   semibold: string;
   bold: string;
   xbold: string;
 };
-declare module 'styled-components' {
+declare module "styled-components" {
   export interface DefaultTheme {
     fontFamily: string;
     breakpoints: Devices;
-    mainColor: string;
-    accentColor: string;
-    highlightColor: string;
-    highlightColorText: string;
-    bodyColor: string;
-    headingColor: string;
-    subHeading: string;
-    textColor: string;
+    background: string;
+    subtleBackground: string;
+    subtleFloating: string;
     shadow: string;
-    overlayColor: string;
-    navColor: string;
-    btnPrimaryLight: string;
-    btnPrimaryDark: string;
-    inputColorLight: string;
-    inputColorDark: string;
-    btnBorder: string;
-    btnText: string;
+    errorShadow: string;
+
     green: string;
     font: FontWeights;
     dangerRed: string;
-    // Panel Colors
-    usersBg: string;
-    pendingBg: string;
-    acceptedBg: string;
+    border: string;
+    borderDanger: string;
+    maxWidthMd: string;
+    maxWidthLg: string;
+    borderHovered: string;
+    // New Colors
+    primary: string;
+    secondary: string;
+    text: string;
+    textContrast: string;
+    textAlt: string;
+    textAltContrast: string;
+    blue: string;
+    yellow: string;
+
+    // New Accents
+    accent1: string;
+    accent2: string;
+    accent3: string;
   }
 }

@@ -1,14 +1,32 @@
-dd-enter {
+.overlay,
+.drawer {
+  transform: translateZ(0);
+}
+.overlay-enter {
   opacity: 0;
 }
-dd-enter-active {
+.overlay-enter-active {
   opacity: 1;
-  transition: opacity 150ms;
+  transition: opacity 250ms;
 }
-dd-exit {
+.overlay-exit {
   opacity: 1;
 }
-dd-exit-active {
+.overlay-exit-active {
   opacity: 0;
-  transition: opacity 150ms;
+  transition: opacity 250ms;
+}
+.drawer-enter {
+  transform: translateY(100%);
+}
+.drawer-enter-active {
+  transition: transform 250ms;
+  transform: translateY(0);
+}
+.drawer-exit {
+  transform: translateY(0);
+}
+.drawer-exit-active {
+  transform: translateY(100%);
+  transition: transform 250ms;
 }
