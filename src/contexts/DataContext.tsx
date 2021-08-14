@@ -1,10 +1,4 @@
-import React, {
-  createContext,
-  useCallback,
-  useContext,
-  useMemo,
-  useState,
-} from "react";
+import React, { createContext, useContext } from "react";
 import { useQuery } from "react-query";
 import useSound from "use-sound";
 
@@ -42,17 +36,10 @@ const DataProvider: React.FC = ({ children }) => {
           return false;
         } else {
           if (newData?.data.length > oldData?.data.length) {
-            if (newData.data[0].orderstatus_id === 1) {
-              play();
-              //   TODO : SET UP MODAL
-              //   setModalOpen(true);
-              // setTimeout(() => {
-              //   setModalOpen(false);
-              // }, 5000);
-            }
             play();
             return false;
           }
+
           return false;
         }
       },
