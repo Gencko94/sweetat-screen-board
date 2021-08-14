@@ -35,6 +35,7 @@ const DarkModeToggleContainer = () => {
       friction: 20,
     },
   });
+
   return (
     <IconWrapper
       onClick={() => toggleTheme?.()}

@@ -2,7 +2,7 @@
 .stat-item:after {
   content: "";
   position: absolute;
-
+  will-change: background;
   border-radius: 12px;
   background: linear-gradient(
     45deg,

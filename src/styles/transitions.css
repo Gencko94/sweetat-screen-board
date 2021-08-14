@@ -1,6 +1,6 @@
 .overlay,
 .drawer {
-  transform: translateZ(0);
+  will-change: transform;
 }
 .overlay-enter {
   opacity: 0;

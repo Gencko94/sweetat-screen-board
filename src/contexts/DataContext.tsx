@@ -26,8 +26,7 @@ type ContextProps = {
 export const DataContext = createContext<Partial<ContextProps>>({});
 
 const DataProvider: React.FC = ({ children }) => {
-  const { volume } = useContext(ConfigContext);
-  const [fetchInterval, setFetchInterval] = useState<number>(50);
+  const { volume, fetchInterval } = useContext(ConfigContext);
   const [play] = useSound("/bell.mp3", {
     volume,
   });
@@ -47,10 +46,11 @@ const DataProvider: React.FC = ({ children }) => {
               play();
               //   TODO : SET UP MODAL
               //   setModalOpen(true);
-              setTimeout(() => {
-                // setModalOpen(false);
-              }, 5000);
+              // setTimeout(() => {
+              //   setModalOpen(false);
+              // }, 5000);
             }
+            play();
             return false;
           }
           return false;

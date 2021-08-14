@@ -87,6 +87,7 @@ const DrawerContainer = styled.div(
     left:0;
     right:0;
     background-color:${subtleBackground};
+    will-change: transform;
 
 
 
