@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import styled from "styled-components";
+import { up } from "../../constants";
 import { DataContext } from "../../contexts/DataContext";
 import { OrderT } from "../../interfaces/DataTypes";
 import Order from "./Order";
@@ -10,7 +11,9 @@ const Table = () => {
   const tableHeaders = [
     "Rest Name",
     "Mode",
+    "Delivered By",
     "Restaurant No",
+    "Order Total",
     "Invoice No",
     "Order Date",
     "Status",
@@ -54,16 +57,22 @@ const TableContainer = styled.div`
 `;
 const TableHead = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr minmax(150px, 1fr);
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr minmax(150px, 1fr);
   gap: 0.25rem;
 `;
-const TableHeadRow = styled.h6`
-  font-weight: ${(props) => props.theme.font.semibold};
-  /* padding: 1rem 0.75rem; */
-
-  font-size: 1rem;
-  min-width: 120px;
-`;
+const TableHeadRow = styled.h6(
+  ({ theme: { breakpoints, font } }) => `
+font-size: 1rem;
+min-width: 120px;
+font-weight: ${font.semibold};
+${up(breakpoints.lg)}{
+  font-size:1.1rem;
+}
+${up(breakpoints.xl)}{
+  font-size:1.2rem;
+}
+`
+);
 
 const NoOrders = styled.div`
   display: flex;

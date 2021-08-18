@@ -49,7 +49,9 @@ const Order: React.FC<IProps> = ({ order }) => {
           <>
             <Dot col="#FFAF46" />
             <Spacer size={5} />
-            <Paragraph style={{ color: "#FFAF46" }}>Pending</Paragraph>{" "}
+            <Paragraph fontSize="1.1rem" style={{ color: "#FFAF46" }}>
+              Pending
+            </Paragraph>{" "}
           </>
         );
       case 2:
@@ -57,7 +59,9 @@ const Order: React.FC<IProps> = ({ order }) => {
           <>
             <Dot col="#2e87fc" />
             <Spacer size={5} />
-            <Paragraph style={{ color: "#2e87fc" }}>Accepted</Paragraph>{" "}
+            <Paragraph fontSize="1.1rem" style={{ color: "#2e87fc" }}>
+              Accepted
+            </Paragraph>{" "}
           </>
         );
 
@@ -66,7 +70,11 @@ const Order: React.FC<IProps> = ({ order }) => {
           <>
             <Dot col="#1d9e42" />
             <Spacer size={5} />
-            <Paragraph align="center" style={{ color: "#1d9e42" }}>
+            <Paragraph
+              fontSize="1.1rem"
+              align="center"
+              style={{ color: "#1d9e42" }}
+            >
               Delivery Assigned
             </Paragraph>
           </>
@@ -76,7 +84,9 @@ const Order: React.FC<IProps> = ({ order }) => {
           <>
             <Dot col="#1d9e42" />
             <Spacer size={5} />
-            <Paragraph style={{ color: "#1d9e42" }}>Picked Up</Paragraph>{" "}
+            <Paragraph fontSize="1.1rem" style={{ color: "#1d9e42" }}>
+              Picked Up
+            </Paragraph>{" "}
           </>
         );
 
@@ -85,7 +95,9 @@ const Order: React.FC<IProps> = ({ order }) => {
           <>
             <Dot col="#1d9e42" />
             <Spacer size={5} />
-            <Paragraph color="secondary">Completed</Paragraph>{" "}
+            <Paragraph fontSize="1.1rem" color="secondary">
+              Completed
+            </Paragraph>{" "}
           </>
         );
       case 6:
@@ -93,7 +105,9 @@ const Order: React.FC<IProps> = ({ order }) => {
           <>
             <Dot col="#b72b2b" />
             <Spacer size={5} />
-            <Paragraph style={{ color: "#b72b2b" }}>Cancelled</Paragraph>
+            <Paragraph fontSize="1.1rem" style={{ color: "#b72b2b" }}>
+              Cancelled
+            </Paragraph>
           </>
         );
 
@@ -109,19 +123,27 @@ const Order: React.FC<IProps> = ({ order }) => {
           alt={order.restaurant.name}
         />
         <Spacer size={10} />
-        <Paragraph>{order.restaurant.name}</Paragraph>
+        <Paragraph fontSize="1.1rem">{order.restaurant.name}</Paragraph>
       </div>
       <div className="field">
-        <Paragraph>{order.payment_mode}</Paragraph>
+        <Paragraph fontSize="1.1rem">{order.payment_mode}</Paragraph>
       </div>
       <div className="field">
-        <Paragraph>{order.restaurant.phone_number}</Paragraph>
+        <Paragraph fontSize="1.1rem">
+          {order.delivered_by_sweetat === 0 ? "Restaurant" : "Sweetat"}
+        </Paragraph>
       </div>
       <div className="field">
-        <Paragraph>{order.unique_order_id}</Paragraph>
+        <Paragraph fontSize="1.1rem">{order.restaurant.phone_number}</Paragraph>
       </div>
       <div className="field">
-        <Paragraph>
+        <Paragraph fontSize="1.1rem">{order.total} KD</Paragraph>
+      </div>
+      <div className="field">
+        <Paragraph fontSize="1.1rem">{order.unique_order_id}</Paragraph>
+      </div>
+      <div className="field">
+        <Paragraph fontSize="1.1rem">
           {moment(order.created_at, "YYYY-MM-DD HH:mm:ss").fromNow()}
         </Paragraph>
       </div>
@@ -134,7 +156,7 @@ export default Order;
 const Container = styled.div<{ isNew: boolean; isStale: boolean }>`
   display: grid;
   position: relative;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr minmax(150px, 1fr);
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr minmax(150px, 1fr);
   gap: 0.25rem;
   margin: 0.5rem 0;
   transition: background 250ms ease;

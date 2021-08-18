@@ -93,7 +93,7 @@ const Layout: React.FC = ({ children }) => {
 export default Layout;
 
 const ContentContainer = styled.div(
-  ({ theme: { breakpoints, maxWidthLg, maxWidthMd } }) => `
+  ({ theme: { breakpoints, maxWidthLg, maxWidthMd, maxWidthXl } }) => `
   min-height: 100vh;
   .body {
     padding:0.5rem;
@@ -104,6 +104,9 @@ const ContentContainer = styled.div(
     }
     ${up(breakpoints.lg)}{
       max-width:${maxWidthLg}
+    }
+    ${up(breakpoints.xl)}{
+      max-width:${maxWidthXl}
     }
   }
   `

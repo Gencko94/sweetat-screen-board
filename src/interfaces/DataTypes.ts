@@ -12,6 +12,8 @@ export interface OrderT {
   restaurant: Restaurant;
   unique_order_id: string;
   payment_mode: string;
+  delivered_by_sweetat: 0 | 1;
+  total: number;
 }
 export interface ResponseT {
   pending: number;

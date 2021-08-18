@@ -27,6 +27,7 @@ declare module "styled-components" {
     borderDanger: string;
     maxWidthMd: string;
     maxWidthLg: string;
+    maxWidthXl: string;
     borderHovered: string;
     // New Colors
     primary: string;

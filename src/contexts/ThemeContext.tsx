@@ -47,6 +47,7 @@ const ThemeProvider: React.FC = ({ children }) => {
       breakpoints: devices,
       maxWidthMd: "960px",
       maxWidthLg: "1260px",
+      maxWidthXl: "1440px",
       yellow: "#f5a623",
       borderDanger: "1px solid #e23e3eac",
 
