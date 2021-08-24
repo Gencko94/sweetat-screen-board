@@ -51,7 +51,7 @@ const Order: React.FC<IProps> = ({ order }) => {
             <Spacer size={5} />
             <Paragraph fontSize="1.1rem" style={{ color: "#FFAF46" }}>
               Pending
-            </Paragraph>{" "}
+            </Paragraph>
           </>
         );
       case 2:
@@ -61,7 +61,7 @@ const Order: React.FC<IProps> = ({ order }) => {
             <Spacer size={5} />
             <Paragraph fontSize="1.1rem" style={{ color: "#2e87fc" }}>
               Accepted
-            </Paragraph>{" "}
+            </Paragraph>
           </>
         );
 
@@ -143,6 +143,9 @@ const Order: React.FC<IProps> = ({ order }) => {
         <Paragraph fontSize="1.1rem">{order.unique_order_id}</Paragraph>
       </div>
       <div className="field">
+        <Paragraph fontSize="1.1rem">{order.specific_time_field!}</Paragraph>
+      </div>
+      <div className="field">
         <Paragraph fontSize="1.1rem">
           {moment(order.created_at, "YYYY-MM-DD HH:mm:ss").fromNow()}
         </Paragraph>
@@ -156,7 +159,7 @@ export default Order;
 const Container = styled.div<{ isNew: boolean; isStale: boolean }>`
   display: grid;
   position: relative;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr minmax(150px, 1fr);
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr minmax(150px, 1fr);
   gap: 0.25rem;
   margin: 0.5rem 0;
   transition: background 250ms ease;

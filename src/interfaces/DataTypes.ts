@@ -14,6 +14,7 @@ export interface OrderT {
   payment_mode: string;
   delivered_by_sweetat: 0 | 1;
   total: number;
+  specific_time_field?: any;
 }
 export interface ResponseT {
   pending: number;

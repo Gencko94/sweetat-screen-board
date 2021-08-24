@@ -15,6 +15,7 @@ const Table = () => {
     "Restaurant No",
     "Order Total",
     "Invoice No",
+    "Scheduled Order",
     "Order Date",
     "Status",
   ];
@@ -57,7 +58,7 @@ const TableContainer = styled.div`
 `;
 const TableHead = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr minmax(150px, 1fr);
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr minmax(150px, 1fr);
   gap: 0.25rem;
 `;
 const TableHeadRow = styled.h6(
