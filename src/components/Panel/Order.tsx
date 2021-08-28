@@ -143,7 +143,7 @@ const Order: React.FC<IProps> = ({ order }) => {
         <Paragraph fontSize="1.1rem">{order.unique_order_id}</Paragraph>
       </div>
       <div className="field">
-        <Paragraph fontSize="1.1rem">{order.specific_time_field!}</Paragraph>
+        <Paragraph fontSize="1.1rem">{order.specific_time!}</Paragraph>
       </div>
       <div className="field">
         <Paragraph fontSize="1.1rem">
